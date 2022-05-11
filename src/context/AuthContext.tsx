@@ -45,7 +45,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
             setAuthTokens(data);
             setUser(jwt_decode(data.access_token));
             localStorage.setItem('authTokens', JSON.stringify(data));
-            navigate('/sign-up');
+            navigate('/');
         } else {
             console.log(data);
         }
