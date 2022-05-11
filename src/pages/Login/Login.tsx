@@ -11,6 +11,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { Link as RouterLink } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 
 function Copyright(props: any) {
     return (
@@ -25,14 +26,7 @@ function Copyright(props: any) {
     );
   }
 function Login() {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
-      };
+    let context = React.useContext(AuthContext);
     return (
         <Grid container component="main" sx={{ height: '100vh' }}>
             <Grid
@@ -64,7 +58,7 @@ function Login() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                    <Box component="form" noValidate onSubmit={context?.loginUser} sx={{ mt: 1 }}>
                         <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus />
                         <TextField margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password" />
                         <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />

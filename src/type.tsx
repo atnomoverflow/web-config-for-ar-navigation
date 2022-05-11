@@ -2,6 +2,7 @@ export type User = {
     email: string;
     firstName?: string;
     lastName?: string;
+    sub:string;
     iat:number
     exp: number
 };

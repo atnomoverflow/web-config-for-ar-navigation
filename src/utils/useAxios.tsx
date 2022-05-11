@@ -12,7 +12,7 @@ const useAxios = () => {
 
     const axiosInstance = axios.create({
         baseURL,
-        headers: { Authorization: `Bearer ${context?.authTokens?.access}` }
+        headers: { Authorization: `Bearer ${context?.authTokens?.access_token}` }
     });
 
     axiosInstance.interceptors.request.use(async (req) => {
