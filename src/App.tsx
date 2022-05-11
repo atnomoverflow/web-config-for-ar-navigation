@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-//import SignUp from './pages/Sign-up';
+import SignUp from './pages/Sign-up';
 // import ProtectedRoute from './utils/privateRoute';
 // import { ProtectedRouteProps } from './type';
 import Login from './pages/Login';
