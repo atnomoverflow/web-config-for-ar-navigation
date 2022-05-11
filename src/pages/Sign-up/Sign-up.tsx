@@ -46,7 +46,7 @@ function SignUp() {
             context?.setAuthTokens(data);
             context?.setUser(jwt_decode(data.access_token));
             localStorage.setItem('authTokens', JSON.stringify(data));
-            navigate('/sign-up');
+            navigate('/');
         } else {
             console.log(data);
         }
