@@ -78,7 +78,7 @@ function Login() {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link to="/sgin-up" component={RouterLink} variant="body2">
+                                <Link to="/sign-up" component={RouterLink} variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
