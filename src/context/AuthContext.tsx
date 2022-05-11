@@ -21,7 +21,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     let [user, setUser] = useState(() => {
         let token = localStorage.getItem('authTokens');
         if (typeof token === 'string') {
-            return jwt_decode(token)as User;
+            return jwt_decode(token) as User;
         }
         return null;
     });
@@ -32,7 +32,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     let loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let loginData = new FormData(e.currentTarget);
-        let response = await fetch('http://127.0.0.1:8000/auth/login/', {
+        let response = await fetch('http://localhost:8000/auth/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -41,13 +41,13 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         });
         let data = await response.json();
 
-        if (response.status === 200) {
+        if (response.status === 201) {
             setAuthTokens(data);
-            setUser(jwt_decode(data.access));
+            setUser(jwt_decode(data.access_token));
             localStorage.setItem('authTokens', JSON.stringify(data));
-            navigate('/');
+            navigate('/sign-up');
         } else {
-            alert('Something went wrong!');
+            console.log(data);
         }
     };
 
@@ -69,7 +69,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
     useEffect(() => {
         if (authTokens) {
-            setUser(jwt_decode(authTokens.access));
+            setUser(jwt_decode(authTokens.access_token));
         }
         setLoading(false);
     }, [authTokens, loading]);

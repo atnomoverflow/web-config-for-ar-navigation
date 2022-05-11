@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import SignUp from './pages/Sign-up';
+import { Route, Routes } from 'react-router-dom';
+//import SignUp from './pages/Sign-up';
 // import ProtectedRoute from './utils/privateRoute';
 // import { ProtectedRouteProps } from './type';
 import Login from './pages/Login';
@@ -10,14 +10,12 @@ export default function App() {
     //     authenticationPath: '/login'
     // };
     return (
-        <BrowserRouter>
-            <AuthProvider>
+        <AuthProvider>
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/sign-up" element={<SignUp />} />
                     {/* <Route path="/sign-up" element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<SginUp />}></ProtectedRoute>} /> */}
                 </Routes>
-            </AuthProvider>
-        </BrowserRouter>
+        </AuthProvider>
     );
 }
