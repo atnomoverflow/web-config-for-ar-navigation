@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import { AuthProvider } from './context/AuthContext';
 import Home from './pages/Home/Home';
 import StandardLayout from './layout/StandardLayout';
+import AddBuildingForm from './pages/Add-Building-Form/AddBuildingForm';
 export default function App() {
     const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
         authenticationPath: '/login'
@@ -13,6 +14,19 @@ export default function App() {
     return (
         <AuthProvider>
             <Routes>
+                <Route
+                    path="add-building"
+                    element={
+                        <ProtectedRoute
+                            {...defaultProtectedRouteProps}
+                            outlet={
+                                <StandardLayout>
+                                    <AddBuildingForm />
+                                </StandardLayout>
+                            }
+                        ></ProtectedRoute>
+                    }
+                />
                 <Route
                     path=""
                     element={

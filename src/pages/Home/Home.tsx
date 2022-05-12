@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 
 import Paper from '@mui/material/Paper';
 import AddIcon from '@mui/icons-material/Add';
+import { Link } from 'react-router-dom';
 function Home() {
     return (
         <Grid
@@ -65,7 +66,7 @@ function Home() {
                         </Grid>
                         <Grid item xs={12}>
                             <Box component="span" sx={{ display: 'flex', justifyContent: 'center', flexGrow: 1, border: '1px dashed grey' }}>
-                                <Button sx={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }} aria-label="add" size="large">
+                                <Button sx={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }} aria-label="add" size="large" component={Link} to={'/add-building'}>
                                     <AddIcon />
                                 </Button>
                             </Box>
