@@ -1,10 +1,22 @@
 import  Grid  from '@mui/material/Grid';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
+import { useAppDispatch } from '../utils/useAppDispatch';
+import { actionCreators as buildingsActions } from '../state/ducks/Buildings';
+import useAxios from '../utils/useAxios';
+
 interface StandardLayoutProps {
     children?: React.ReactNode;
 }
 const StandardLayout: React.FC<StandardLayoutProps> = ({ children }) => {
+     const dispatch = useAppDispatch();
+     const axios = useAxios();
+     useEffect(() => {
+         const fetchBuilding = () => {
+             dispatch(buildingsActions.load(axios));
+         };
+         fetchBuilding();
+     }, []);
     return (
         <>
             <ResponsiveAppBar />

@@ -1,3 +1,5 @@
+import { store } from "./state";
+
 export type User = {
     email: string;
     firstName?: string;
@@ -23,6 +25,7 @@ export type BuildingCardProps = {
     adress: string;
     imageSrc: string;
     id: string;
+    handleDelete:()=>void
 };
 export type Buidling = {
     name: string;
@@ -31,3 +34,9 @@ export type Buidling = {
     latitude: number;
     longitude: number;
 };
+export type  Action={
+    type:string
+    payload?:any;
+}
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
