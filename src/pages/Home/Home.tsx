@@ -7,29 +7,9 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import useAxios from '../../utils/useAxios';
-import CircularProgress from '@mui/material/CircularProgress';
-import BuildingCard from '../../components/BuildingCard';
-import { Buidling } from '../../type';
-import { MAP_BOX_KEY } from '../../constant';
+import Buildings from '../../components/Buildings';
 
 function Home() {
-    const [Loading, setLoading] = useState(true);
-    const [buildings, setBuildings] = useState([]);
-    const axios = useAxios();
-    useEffect(() => {
-        const fetchBuildigns = async () => {
-            await axios('building')
-                .then((response) => {
-                    setBuildings(response.data.buildings);
-                })
-                .then(() => {
-                    setLoading(false);
-                });
-        };
-        fetchBuildigns();
-    }, []);
     return (
         <Container sx={{ p: '5%' }} maxWidth="sm">
             <Paper sx={{ p: '5%' }} elevation={16} square>
@@ -44,22 +24,7 @@ function Home() {
                 <Grid container component="main" spacing={2}>
                     <Grid item xs={12}>
                         <Stack direction="column" spacing={0.5}>
-                            {Loading ? (
-                                <CircularProgress />
-                            ) : (
-                                buildings.map((building: Buidling) => (
-                                    <div key={building.id}>
-                                        <BuildingCard
-                                            id={building.id}
-                                            name={building.name}
-                                            adress={building.adress}
-                                            imageSrc={`https://api.mapbox.com/styles/v1/mapbox/light-v10/static/pin-s+555555(${building.longitude},${building.latitude})/${building.longitude},${
-                                                building.latitude
-                                            },${12},0/300x200?access_token=${MAP_BOX_KEY}`}
-                                        />
-                                    </div>
-                                ))
-                            )}
+                            <Buildings/>
                         </Stack>
                     </Grid>
                     <Grid item xs={12}>
