@@ -6,8 +6,13 @@ import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { BuildingCardProps } from '../type';
+import useAxios from '../utils/useAxios';
 
-const BuildingCard = ({ imageSrc, name, adress }: BuildingCardProps) => {
+const BuildingCard = ({ imageSrc, name, adress,id }: BuildingCardProps) => {
+    const axios=useAxios()
+    const handleClick=async()=>{
+        await axios.delete(`building/${id}`);
+    }
     return (
         <Card sx={{ display: 'flex', flexGrow: 1, backgroundColor: '#bde2f4' }}>
             <CardMedia component="img" sx={{ width: 151 }} image={imageSrc} alt="Live from space album cover" />
@@ -20,7 +25,7 @@ const BuildingCard = ({ imageSrc, name, adress }: BuildingCardProps) => {
                         {adress}
                     </Typography>
                 </CardContent>
-                <IconButton aria-label="delete">
+                <IconButton aria-label="delete" onClick={handleClick}>
                     <DeleteIcon />
                 </IconButton>
             </Box>

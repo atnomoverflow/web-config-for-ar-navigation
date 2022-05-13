@@ -22,6 +22,7 @@ export type BuildingCardProps = {
     name: string;
     adress: string;
     imageSrc: string;
+    id: string;
 };
 export type Buidling = {
     name: string;

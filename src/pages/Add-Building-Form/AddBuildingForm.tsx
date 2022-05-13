@@ -7,11 +7,19 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import DomainAddIcon from '@mui/icons-material/DomainAdd';
 import Map, { Marker } from 'react-map-gl';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { MAP_BOX_KEY } from '../../constant';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
+import useAxios from '../../utils/useAxios';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import CircularProgress from '@mui/material/CircularProgress';
+import  Slide  from '@mui/material/Slide';
 
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 const AddBuildingForm = () => {
     const [marker, setMarker] = useState({ lat: 52.35471127172383, lng: 4.914465703269798 });
     const [viewState, setViewState] = useState({
@@ -19,6 +27,46 @@ const AddBuildingForm = () => {
         latitude: 52.370216,
         zoom: 10
     });
+    const [formData, setFormData] = useState({
+        name: '',
+        adress: ''
+    });
+    const [loading, setLoading] = useState(false);
+    const axios = useAxios();
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+
+        await axios
+            .post('building', {
+                name: formData.name,
+                adress: formData.adress,
+                latitude: marker.lat,
+                longitude: marker.lng
+            })
+            .then(() => {
+                setLoading(false);
+                setSuccess(true);
+            })
+            .catch(()=>{
+                setLoading(false);
+                setFailure(true);
+            });
+    };
+    const [success, setSuccess] = useState(false);
+    const [failure, setFailure] = useState(false);
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setSuccess(false);
+        setFailure(false);
+    };
+    function TransitionLeft(props:any) {
+        return <Slide {...props} direction="left" />;
+    }
+
     return (
         <>
             <Container sx={{ p: '5%' }} maxWidth="sm">
@@ -44,19 +92,35 @@ const AddBuildingForm = () => {
                     >
                         Add building
                     </Typography>
-                    <Box component="form" noValidate onSubmit={(e: React.FormEvent<HTMLFormElement>) => {}} sx={{ mt: 1 }}>
+                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                         <Grid container component="main" spacing={2}>
                             <Grid item xs={12}>
-                                <TextField margin="normal" required fullWidth name="name" label="name" id="name" />
+                                <TextField
+                                    margin="normal"
+                                    value={formData.name}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        setFormData({ ...formData, name: event.target.value });
+                                    }}
+                                    required
+                                    fullWidth
+                                    name="name"
+                                    label="name"
+                                    id="name"
+                                />
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField margin="normal" required fullWidth name="adress" label="adress" id="adress" />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <input type="hidden" value={marker.lat} required name="latitude" id="latitude" />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <input type="hidden" value={marker.lng} required name="longitude" id="longitude" />
+                                <TextField
+                                    margin="normal"
+                                    value={formData.adress}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                        setFormData({ ...formData, adress: event.target.value });
+                                    }}
+                                    required
+                                    fullWidth
+                                    name="adress"
+                                    label="adress"
+                                    id="adress"
+                                />
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
@@ -75,12 +139,22 @@ const AddBuildingForm = () => {
                                 </Map>
                             </div>
                         </Grid>
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                            <DomainAddIcon />
+                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} disabled={loading}>
+                            {loading ? <CircularProgress /> : <DomainAddIcon />}
                         </Button>
                     </Box>
                 </Paper>
             </Container>
+            <Snackbar open={success} autoHideDuration={6000} onClose={handleClose} TransitionComponent={TransitionLeft}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Building Created Successfully
+                </Alert>
+            </Snackbar>
+            <Snackbar open={failure} autoHideDuration={6000} onClose={handleClose} TransitionComponent={TransitionLeft}>
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    Try again
+                </Alert>
+            </Snackbar>
         </>
     );
 };
