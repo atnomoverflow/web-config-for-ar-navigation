@@ -1,0 +1,1 @@
+export const MAP_BOX_KEY=process.env.REACT_APP_MAPBOX_KEY ? process.env.REACT_APP_MAPBOX_KEY : ''
