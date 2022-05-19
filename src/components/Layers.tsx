@@ -1,8 +1,6 @@
 
 import { useEffect } from 'react';
-import BuildingCard from './BuildingCard';
 import {  Layer, RootState } from '../type';
-import { MAP_BOX_KEY } from '../constant';
 import { useAppSelector } from '../utils/useAppSelector';
 import { useAppDispatch } from '../utils/useAppDispatch';
 import { actionCreators as layersActions } from '../state/ducks/Layers';

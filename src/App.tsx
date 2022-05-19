@@ -8,6 +8,7 @@ import Home from './pages/Home/Home';
 import StandardLayout from './layout/StandardLayout';
 import AddBuildingForm from './pages/Add-Building-Form/AddBuildingForm';
 import LayerOverview from './pages/LayerOverview/Overview';
+import AddLayerForm from './pages/Add-Layer-Form/AddLayerForm';
 export default function App() {
     const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
         authenticationPath: '/login'
@@ -28,6 +29,7 @@ export default function App() {
                         ></ProtectedRoute>
                     }
                 />
+
                 <Route
                     path="layer/:id"
                     element={
@@ -36,6 +38,19 @@ export default function App() {
                             outlet={
                                 <StandardLayout>
                                     <LayerOverview />
+                                </StandardLayout>
+                            }
+                        ></ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="layer/:id/add-layer"
+                    element={
+                        <ProtectedRoute
+                            {...defaultProtectedRouteProps}
+                            outlet={
+                                <StandardLayout>
+                                    <AddLayerForm />
                                 </StandardLayout>
                             }
                         ></ProtectedRoute>
