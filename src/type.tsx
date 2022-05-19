@@ -27,6 +27,13 @@ export type BuildingCardProps = {
     id: string;
     handleDelete:()=>void
 };
+export type FloorCardProps = {
+    name: string;
+    floorPlan: string;
+    floorNumber: number;
+    id: string;
+    handleDelete: () => void;
+};;
 export type Buidling = {
     name: string;
     adress: string;
@@ -40,3 +47,10 @@ export type  Action={
 }
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type Layer = {
+    floorNumber: number;
+    name: string;
+    mapBoxTileSet: string;
+    id: string;
+    floorPlan:string;
+};
