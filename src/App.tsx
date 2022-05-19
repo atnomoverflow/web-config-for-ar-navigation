@@ -7,6 +7,7 @@ import { AuthProvider } from './context/AuthContext';
 import Home from './pages/Home/Home';
 import StandardLayout from './layout/StandardLayout';
 import AddBuildingForm from './pages/Add-Building-Form/AddBuildingForm';
+import LayerOverview from './pages/LayerOverview/Overview';
 export default function App() {
     const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
         authenticationPath: '/login'
@@ -22,6 +23,19 @@ export default function App() {
                             outlet={
                                 <StandardLayout>
                                     <AddBuildingForm />
+                                </StandardLayout>
+                            }
+                        ></ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="layer/:id"
+                    element={
+                        <ProtectedRoute
+                            {...defaultProtectedRouteProps}
+                            outlet={
+                                <StandardLayout>
+                                    <LayerOverview />
                                 </StandardLayout>
                             }
                         ></ProtectedRoute>
