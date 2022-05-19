@@ -20,7 +20,7 @@ function LayerOverview() {
                     gutterBottom
                     component="div"
                 >
-                    Manage Venue
+                    Manage Layers
                 </Typography>
                 <Grid container component="main" spacing={2}>
                     <Grid item xs={12}>
@@ -30,7 +30,7 @@ function LayerOverview() {
                     </Grid>
                     <Grid item xs={12}>
                         <Box component="span" sx={{ display: 'flex', justifyContent: 'center', flexGrow: 1, border: '1px dashed grey' }}>
-                            <Button sx={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }} aria-label="add" size="large" component={Link} to={'/add-layer'}>
+                            <Button sx={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }} aria-label="add" size="large" component={Link} to={'add-layer'}>
                                 <AddIcon />
                             </Button>
                         </Box>
